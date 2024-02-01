@@ -47,7 +47,7 @@ export class PolarisChip extends LitElement {
     */
       :host {
         /* Always make sure that your element has a default way of being displayed */
-        display: inline flex;
+        display: inline-flex;
       }
 
       span{
@@ -86,7 +86,7 @@ export class PolarisChip extends LitElement {
     // it is going to print the title of the element. The magic of Lit is that
     // when title is changed (even by inspecting the document and hacking the value)
     // it will automatically update what is displayed and do so incredibly quickly
-    return html`<a href = "$(this.link)"><span>${this.title}</span></a>`;
+    return html`<a href = "${this.link}"><span>${this.title}</span></a>`;
   }
 
   // LitElement uses the properties call to do the following:
