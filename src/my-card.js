@@ -14,14 +14,23 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.title = "the POD CARD";
+    this.src = "https://i.postimg.cc/cCkpvY73/7bd23ffa9c82eb5d82cbb6335ba20d69.jpg";
+    this.pargraph = "The image above is a picture of a man sleeping in a napping pod from the future. Hopefully someday we all can have our own napping pod.";
+    this.button = "Details";
   }
+
+
 
   static get styles() {
     return css`
       :host {
-        display: inline flex;
+        display: inline-flex;
       }
+      
+
+      
     `;
+
   }
 
   render() {
@@ -32,6 +41,10 @@ export class MyCard extends LitElement {
   static get properties() {
     return {
       title: { type: String },
+      src: {type: Image},
+      pargraph: {type: String},
+      button: {type: String},
+
     };
   }
 }
