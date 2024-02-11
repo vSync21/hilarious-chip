@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -17,11 +18,10 @@
       background-color: #ededed;
       font-size: 24px;
     }
+
     polaris-chip {
       margin: 16px;
     }
-
-    
   </style>
   <title>polaris-chip / my-card</title>
 </head>
@@ -29,29 +29,140 @@
 <body>
   <h1>polaris-chip</h1>
   <!-- this is going to do whatever the tag's defaults are -->
-  <polaris-chip title = 'Use of Record' link = "https://www.psu.edu/"></polaris-chip>
-  <polaris-chip title = 'Faculty and Staff'></polaris-chip>
-  <polaris-chip title = 'Sports are the only thing that matter'></polaris-chip>
-  <polaris-chip title = 'Grants and Donations'></polaris-chip>
+  <polaris-chip title='Use of Record' link="https://www.psu.edu/"></polaris-chip>
+  <polaris-chip title='Faculty and Staff'></polaris-chip>
+  <polaris-chip title='Sports are the only thing that matter'></polaris-chip>
+  <polaris-chip title='Grants and Donations'></polaris-chip>
 
   <!-- this is going to take the tag and change the title -->
   <polaris-chip title="Cool"></polaris-chip>
 
 
 
-<h1>my-card</h1>
+  <h1>my-card</h1>
+
+  <h2>Controls</h2>
+  <button id="duplicate">Clone Card</button>
+  <button id="changetitle">Change title</button>
+  <button id="changeimage">Change image</button>
+  <button id="changebackground">Change background</button>
+  <button id="delete">Delete Card</button>
+  <div id="wholecard">
+    <my-card title="the POD CARD" fancy image="https://i.postimg.cc/50cYXM9P/7bd23ffa9c82eb5d82cbb6335ba20d69.jpg"
+      paragraph="This man is sleeping in a napping pod." link="https://hax.psu.edu/">
+      <slot>This man is asleep</slot>
+    </my-card>
+    <my-card title="Fresh Prince"
+      image="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRPgSRgEYJ3lY8Ky8wNqfoJqWe2U2VMe-RIKbO_0HSXGj5sHA-_"
+      paragraph="Fresh Prince of Bel-Air" link="https://hax.psu.edu">
+      <slot>West Philadelphia born and raised</slot>
+    </my-card>
+    <my-card title="Man is Napping" image="https://i.postimg.cc/Xv6x0tSb/man-napping.jpg" color="#98fb98"
+      paragraph="This is yet another man whos taking a nap." link="https://hax.psu.edu/">
+      <slot>Another man is napping</slot>
+    </my-card>
+    <my-card title="Man is Awoken" image="https://i.postimg.cc/SRHCfzmh/awoken.jpg" color="#ffdab9"
+      paragraph="This man was awoken in his sleep" link="https://hax.psu.edu/">
+      <slot>This describes a man who was awoken</slot>
+    </my-card>
+    <my-card title="Man not able to Sleep" image="https://i.postimg.cc/BnTH26yr/OIP.jpg" color="#f08080"
+      paragraph="This man was not able to take a nap" link="https://hax.psu.edu/">
+      <slot>This describes a man who was not able to take a nap</slot>
+    </my-card>
+    <my-card title="Getting ready for bed" image="https://i.postimg.cc/pXqpvFwX/download.jpg" color="#FEE123"
+      paragraph="This man is getting ready for bed" link="https://hax.psu.edu/">
+      <slot>This describes how the guy is getting ready for bed</slot>
+    </my-card>
+  </div>
 
 
-  <my-card title = "the POD CARD" image = "https://i.postimg.cc/50cYXM9P/7bd23ffa9c82eb5d82cbb6335ba20d69.jpg" paragraph = "This man is sleeping in a napping pod."link = "https://hax.psu.edu/"></my-card>
-  <my-card title = "Man is Napping" image = "https://i.postimg.cc/Xv6x0tSb/man-napping.jpg"color= "#98fb98" paragraph ="This is yet another man whos taking a nap." link = "https://hax.psu.edu/"></my-card>
-  <my-card title = "Man is Awoken" image = "https://i.postimg.cc/SRHCfzmh/awoken.jpg" color="#ffdab9" paragraph ="This man was awoken in his sleep" link = "https://hax.psu.edu/"></my-card>
-  <my-card title = "Man not able to Sleep" image = "https://i.postimg.cc/BnTH26yr/OIP.jpg" color ="#f08080" paragraph ="This man was not able to take a nap" link = "https://hax.psu.edu/"></my-card>
-  <my-card title = "Getting ready for bed" image = "https://i.postimg.cc/pXqpvFwX/download.jpg" color= "#FEE123" paragraph = "This man is getting ready for bed" link ="https://hax.psu.edu/" ></my-card>
 
 
+
+
+
+ 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+
+  <script>
+    document.querySelector('#duplicate').addEventListener('click', function (event) {
+      if (document.querySelectorAll('my-card').length < 10) {
+        const newCard = document.querySelector('my-card').cloneNode(true);
+        // Q1: this is currently appending to the body;
+        // how can we append so that it's placed right next to the other card?
+        document.querySelector('#wholecard').appendChild(newCard);
+
+      }
+
+    });
+
+    // Q2: How would we change the title of the card?
+    document.querySelector('#changetitle').addEventListener('click', function (e) {
+      const card = document.querySelector('my-card');
+
+      const shadowRoot = card.shadowRoot;
+      const title = shadowRoot.querySelector('.heading')
+
+      title.textContent = "Nap Time";
+
+    })
+
+    // Q3: How would we change the image of the card on click to https://github.com/elmsln.png
+    document.querySelector('#changeimage').addEventListener('click', function (e) {
+
+      const card = document.querySelector('my-card');
+      const shadowRoot = card.shadowRoot;
+      const img = shadowRoot.querySelector('.img-pod')
+
+      img.setAttribute('src', "https://github.com/elmsln.png");
+
+
+    })
+
+    // Q4: How would we hook up the button to change the background via a css class?
+
+    document.querySelector('#changebackground').addEventListener('click', function (e) {
+
+      const backgroundCards = document.querySelectorAll('my-card');
+      console.log(backgroundCards)
+      backgroundCards.forEach(function(backgroundCard) {
+        backgroundCard.classList.toggle('change-color');
+      });
+
+
+    
+
+
+
+    });
+
+    // Q5: How would we delete the last card?
+    document.querySelector('#delete').addEventListener('click', function (e) {
+      console.log(document.querySelectorAll('my-card').length);
+      if (document.querySelectorAll('my-card').length !== 1) {
+
+        document.querySelector('my-card').remove();
+      }
+    })
+
+
+    /* Additional logic to add:
+      - Ensure that when we DELETE cards, that we never delete 
+        our 1st one or we can't use the 'app'
+      - Ensure that when we ADD cards that we never add more than 10
+      - Ensure that when we change the background class that we are 
+        able to toggle the classes to be the opposite of what they 
+        are (so eithere the class is there and visually applied, 
+        or its not, and toggles for all elements)
+    */
+
+
+
+
+
+  </script>
 </body>
 
 </html>

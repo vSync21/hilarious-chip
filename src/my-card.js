@@ -18,7 +18,8 @@ export class MyCard extends LitElement {
     this.paragraph = "Paragraph here";
     this.link = "Link here";
     this.color = "color of card";
-    
+    this.fancy = false;
+
   }
 
 
@@ -28,6 +29,13 @@ export class MyCard extends LitElement {
       :host {
         display: inline-flex;
       }
+      :host([fancy]) {
+      width: 600px;
+      display: block;
+      background-color: pink;
+      border: 2px solid fuchsia;
+      box-shadow: 10px 5px 5px red;
+}
 
       .heading {
         color: red;
@@ -35,10 +43,30 @@ export class MyCard extends LitElement {
 
       }
       
-      img{
+      .img-pod{
       height: 280px;
       width: 300px;
     }
+
+    details summary {
+    text-align: left;
+    font-size: 20px;
+    padding: 8px 0;
+  }
+
+  details[open]  summary{
+
+    font-weight: bold;
+  }
+  
+  details div {
+
+    border: 2px solid black;
+    text-align: left;
+    padding: 8px;
+    height: 70px;
+    overflow: auto;
+  }
 
     p {
 
@@ -67,13 +95,14 @@ export class MyCard extends LitElement {
     font-size: 30px; 
     --basic-color: #ff6500;
   }
+
   
   
-  
-  
-  
-  
-  
+  .change-color {
+    background-color: red;
+    
+  }
+
  
   .card {
     align-items: center;
@@ -86,6 +115,8 @@ export class MyCard extends LitElement {
     flex-direction: column;
     width: 90%;
   }
+
+  
   
   
   
@@ -108,7 +139,9 @@ export class MyCard extends LitElement {
     background-color: orange;
   }
   
-  
+  details{
+    padding: 16px;
+  }
 
   
   
@@ -124,6 +157,17 @@ export class MyCard extends LitElement {
 
   }
 
+
+  openChanged(e) {
+    console.log(e);
+    if (e.target.getAttribute('open') !== null) {
+      this.fancy = true;
+    }
+    else {
+      this.fancy = false;
+    }
+  }
+
   render() {
     return html`
     <div id = "wholecard">
@@ -131,9 +175,14 @@ export class MyCard extends LitElement {
         <h3 class = "heading">${this.title}</h3>
         <img src="${this.image}" class="img-pod">
         <p class = "paragraph">${this.paragraph}</p>
+        <details ?open="${this.fancy}">
+          <summary>Description</summary>
+            <slot>${this.description}</slot>
+        </details>
         <a href = "${this.link}"><button class = "button">Details</button></a>
+        
   </div>
-
+  
       
    
   </div>
@@ -141,19 +190,24 @@ export class MyCard extends LitElement {
     
     `;
 
-    
-    
+
+
   }
+
 
   static get properties() {
     return {
       title: { type: String },
-      image: {type: String},
-      paragraph: {type: String},
-      link: {type: String},
-      color: {type: String},
+      image: { type: String },
+      paragraph: { type: String },
+      link: { type: String },
+      color: { type: String },
+      fancy: { type: Boolean, reflect: true },
+
     };
   }
 }
+
+
 
 globalThis.customElements.define(MyCard.tag, MyCard);
