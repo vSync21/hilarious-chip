@@ -38,10 +38,43 @@
   <polaris-chip title="Cool"></polaris-chip>
 
 
-  <h1>Counter App</h1>
+  <h1>Campus Alert</h1>
 
-  <counter-app title = "0"></counter-app>
-  <counter-app title="16" min="10" max="25"></counter-app>
+  <campus-alert title = "ALERT!" 
+  image="https://image.freepik.com/free-vector/alert-symbol-design_24911-39809.jpg" 
+  paragraph = 'This is a very important alert for something' 
+  color = "red"
+  link_text ='Click here for more' 
+  link = 'https://www.psu.edu/news/'>
+</campus-alert>
+
+<campus-alert title = "WARNING ALERT!" 
+image="https://image.freepik.com/free-vector/alert-symbol-design_24911-39809.jpg" 
+paragraph = 'This is a very important alert for something' 
+color = "yellow"
+link_text ='Click here for more' 
+link = 'https://www.psu.edu/news/'>
+</campus-alert>
+
+<campus-alert title = "NOTICE ALERT!" 
+image="https://image.freepik.com/free-vector/alert-symbol-design_24911-39809.jpg" 
+paragraph = 'This is a very important alert for something' 
+color = "blue"
+link_text ='Click here for more' 
+link = 'https://www.psu.edu/news/'>
+</campus-alert>
+
+
+
+ 
+      
+
+
+  
+
+
+
+
 
 
  
@@ -62,6 +95,7 @@
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
   <script type="module" src="./src/counter-app.js"></script>
+  <script type="module" src="./src/campus-alert.js"></script>
 
 
   
@@ -70,29 +104,45 @@
 
   <script>
     /*
+  /*
 
-const mainTitle = document.querySelector('#title');
-    const value = 0;
+  <counter-app title = "0"></counter-app>
+  <counter-app title="16" min="10" max="25"></counter-app>
+  
 
-    const buttonIncrease = document.querySelector('#increase');
-    const buttonDecrease = document.querySelector('#decrease');
+  <counter-app title = "0"></counter-app>
+  <counter-app title="16" min="10" max="25"></counter-app>
 
-    buttonIncrease.addEventListener('click', () => {
-      value++;
-      mainTitle.textContent = value;
-    });
+  <my-card title="the POD CARD" fancy image="https://i.postimg.cc/50cYXM9P/7bd23ffa9c82eb5d82cbb6335ba20d69.jpg"
+      paragraph="This man is sleeping in a napping pod." link="https://hax.psu.edu/">
+      <slot>This man is asleep</slot>
+    </my-card>
+    <my-card title="Fresh Prince"
+      image="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRPgSRgEYJ3lY8Ky8wNqfoJqWe2U2VMe-RIKbO_0HSXGj5sHA-_"
+      paragraph="Fresh Prince of Bel-Air" link="https://hax.psu.edu">
+      <slot>West Philadelphia born and raised</slot>
+    </my-card>
+    <my-card title="Man is Napping" image="https://i.postimg.cc/Xv6x0tSb/man-napping.jpg" color="#98fb98"
+      paragraph="This is yet another man whos taking a nap." link="https://hax.psu.edu/">
+      <slot>Another man is napping</slot>
+    </my-card>
+    <my-card title="Man is Awoken" image="https://i.postimg.cc/SRHCfzmh/awoken.jpg" color="#ffdab9"
+      paragraph="This man was awoken in his sleep" link="https://hax.psu.edu/">
+      <slot>This describes a man who was awoken</slot>
+    </my-card>
+    <my-card title="Man not able to Sleep" image="https://i.postimg.cc/BnTH26yr/OIP.jpg" color="#f08080"
+      paragraph="This man was not able to take a nap" link="https://hax.psu.edu/">
+      <slot>This describes a man who was not able to take a nap</slot>
+    </my-card>
+    <my-card title="Getting ready for bed" image="https://i.postimg.cc/pXqpvFwX/download.jpg" color="#FEE123"
+      paragraph="This man is getting ready for bed" link="https://hax.psu.edu/">
+      <slot>This describes how the guy is getting ready for bed</slot>
+    </my-card>
+  </div>
 
-    buttonDecrease.addEventListener('click', () => {
-      value--;
-      mainTitle.textContent = value;
-    });
 
-    
-updated(changedProperties); {
-  if (changedProperties.has('counter')) {
-    // do your testing of the value and make it rain by calling makeItRain
-  }
-}
+  
+
 
 makeItRain(); {
   // this is called a dynamic import. It means it won't import the code for confetti until this method is called
