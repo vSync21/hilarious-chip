@@ -18,36 +18,71 @@ export class CampusAlert extends LitElement {
     this.paragraph = "Paragraph here";
     this.image = 'img here';
     this.link = "Link here";
-    this.link_text = "text for link"
+    this.link_text = "text for link";
     this.color = "color of card";
+    this.sticky = false;
+    this.open = true;
+    if(localStorage.getItem('campus-alert-opened-state') == 'true') {
+      this.open = true;
+    }
+    else {
+      this.open = false;
+    }
+    this.date = 'date';
   }
 
   static get styles() {
     return css`
 
+:host([sticky]) .wholealert {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+
+
+ 
+
 .alert {
+    font-style: italic;
+    font-style: bold;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0px;
+    padding: 10x;
+    margin: 0px;
 }
 
 .content {
+    font-style: italic;
+    font-style: bold;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .image {
-    width: 32px; 
+    width: 64px; 
     height: auto; 
-    margin-right: 18px; 
+    margin-right: auto; 
 }
 
 .paragraph {
     margin: 0;
+    text-align: center;
+}
+
+.date {
+  font-style: bold;
+  margin-left: auto;
+}
+
+.link {
+  font-style: bold;
 }
 
 
@@ -57,20 +92,31 @@ export class CampusAlert extends LitElement {
 
   render() {
     return html`
-    <div id = "wholealert">
+    <div class = "wholealert" ?sticky="${this.sticky}">
       <div class = "alert" style="background-color: ${this.color};">
         <h3 class = "heading">${this.title}</h3>
+        ${this.open ? html`
         <div class = 'content'>
         <img class= 'image' src = "${this.image}">
-        <p class = "paragraph">${this.paragraph}&nbsp;</p>
-        <a href = "${this.link}"><p class = 'link-text'>${this.link_text}</p></a>
+        <p class = "paragraph">${this.paragraph}</p>
+        <slot></slot>
         </div>
+        <a href = "${this.link}"><p class = 'link-text'>${this.link_text}</p></a>
+        `: ''}
+        <div class = "date">${this.date}</div>
+        <button @click="${this.toggleVisibility}">${this.open ? 'Minimize contents' : 'Show Contents'}</button>
 
   </div>
         
         
     </div>
     `;
+  }
+
+
+  toggleVisibility(){
+    this.open = !this.open;
+    localStorage.setItem('campus-alert-opened-state', this.open);
   }
 
   static get properties() {
@@ -81,8 +127,13 @@ export class CampusAlert extends LitElement {
       image: {type: String},
       link_text: {type: String},
       color: { type: String },
+      sticky: {type: Boolean, reflect: true},
+      open: {type: Boolean, reflect: false},
+      date: {type: String},
     };
   }
+
+  
 }
 
 
