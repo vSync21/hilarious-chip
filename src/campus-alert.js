@@ -40,9 +40,30 @@ export class CampusAlert extends LitElement {
         z-index: 1000;
       }
 
+      
+      :host([status="alert"]) {
+            --bgcolor: red;
+        }
 
-
+     
  
+        :host([status="warning"]) {
+            --bgcolor: yellow;
+        }
+
+        :host([status="notice"]) {
+            --bgcolor: blue;
+        }
+
+        :host([status="crazy"]) {
+            --bgcolor: green;
+        }
+ 
+ 
+        .wholealert {
+          background-color: var(--bgcolor);
+          height: 100%;
+        }   
 
 .alert {
     font-style: italic;
