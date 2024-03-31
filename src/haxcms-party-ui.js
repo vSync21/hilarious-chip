@@ -18,15 +18,10 @@ export class Project1 extends LitElement {
         this.title = "Project 1";
         this.color = "color";
         this.open = true;
-        this.button = "button"
-        if(localStorage.getItem('haxcms-party-ui') == 'true') {
-            this.open = true;
-          }
-          else {
-            this.open = false;
-          }
-          this.date = 'date';
+        this.button = "button";
+        this.userNames = [];
 
+        
     }
     
 
@@ -63,8 +58,20 @@ export class Project1 extends LitElement {
         background-color: lightblue;
         border: 2px solid black;
         border-radius: 10px; 
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
 
     }
+
+    button, input{
+    margin-bottom: 24px; 
+    padding: 10px; 
+    border: 1px solid white;
+    border-radius: 8px; 
+    justify-content: center;
+}
 
 
 
@@ -150,16 +157,18 @@ export class Project1 extends LitElement {
 
    
     
-      toggleVisibility(){
-        this.open = !this.open;
-        localStorage.setItem('haxcms-party-ui-opened-state', this.open);
-      }
+  
 
       addRPGCharacter() {
         import("@lrnwebcomponents/rpg-character/rpg-character.js").then(module => {
             const rpgCharacter = document.createElement('rpg-character');
             this.shadowRoot.querySelector('.background').appendChild(rpgCharacter);
-        });
+            const usernameInput = this.shadowRoot.querySelector('.username-input');
+            const username = usernameInput.value;
+            this.userNames.push(username);
+            console.log(username);
+          });
+
     }
 
 
@@ -168,32 +177,24 @@ export class Project1 extends LitElement {
       rpgCharacters.forEach(character => character.remove()
     );
   }
-    
-
-      
-
-
-
-      
-    
 
 
     render() {
         return html`
+<confetti-container id="confetti">
     <div id = "wholething">
         <div class = "background" style="background-color: ${this.color};">
-        <button @click="${this.toggleVisibility}">${this.open ? '...' : '...'}</button>
         <h3 class = "heading">${this.title}</h3>
-        ${this.open ? html`
+        <input type = "text" class = "username-input" id = "usernameInput" placeholder = "Enter name">
+        <button class = "add" id = "user" @click="${this.addRPGCharacter}">Add User</button>
         <div class = "button">
-        <button @click="${this.addRPGCharacter}">Add User</button>
         <button @click="${this.makeItRain}">Save Members Party</button>
         <button @click="${this.deleteRPGCharacters}">Delete</button>
         </div>
-        `: ''}
       </div>
      </div>
     </div>
+    </confetti-container>
 
     `;
 
@@ -206,6 +207,8 @@ export class Project1 extends LitElement {
             title: { type: String },
             color: { type: String },
             open: {type: Boolean, reflect: false},
+            button: {type: String},
+            userNames: {type: Array},
         };
     }
 }
