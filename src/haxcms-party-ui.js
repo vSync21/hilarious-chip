@@ -236,7 +236,7 @@ export class Project1 extends DDD {
     <div id = "wholething">
         <div class = "background" style="background-color: ${this.color};">
         <h3 class = "heading">${this.title}</h3>
-        <input type = "text" class = "username-input" id = "usernameInput" placeholder = "Enter name" pattern="[a-z0-9]*">
+        <input type = "text" class = "username-input" id = "usernameInput" placeholder = "Enter name">
         <button class = "add" id = "user" @click="${this.addRPGCharacter}">Add User</button>
         <div class = "button">
         <button @click="${this.makeItRain}">Save Members Party</button>
