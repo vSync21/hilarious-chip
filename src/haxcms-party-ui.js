@@ -1,40 +1,42 @@
 import { LitElement, html, css } from 'lit';
 import "@lrnwebcomponents/multiple-choice/lib/confetti-container.js";
 import "@lrnwebcomponents/rpg-character/rpg-character.js";
+import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do
  * 1. 
  */
 
-export class Project1 extends LitElement {
+export class Project1 extends DDD {
 
-    static get tag() {
-        return 'haxcms-party-ui';
-    }
+  static get tag() {
+    return 'haxcms-party-ui';
+  }
 
-    constructor() {
-        super();
-        this.title = "Project 1";
-        this.color = "color";
-        this.open = true;
-        this.button = "button";
-        this.userNames = [];
-
-        
-    }
-    
+  constructor() {
+    super();
+    this.title = "Project 1";
+    this.color = "color";
+    this.open = true;
+    this.button = "button";
+    this.userNames = [];
 
 
 
-    static get styles() {
-        return css`
+  }
+
+
+
+
+  static get styles() {
+    return css`
 
     :host {
   display: flex;
   justify-content: center;
   align-items: center; 
-  border: 0px solid black; 
+  border: 0px var(--ddd-theme-default-potentialMidnight); 
   box-shadow: 0; 
     }
 
@@ -42,9 +44,13 @@ export class Project1 extends LitElement {
         margin: 20px;
     }
 
+    .user-list {
+      display: flex;
+    }
+
     .heading {
         justify-content: center;
-        color: red;
+        color: var(--ddd-theme-default-original87Pink);
         display: flex;
         font-size: 32px;
         flex: 0; 
@@ -55,15 +61,19 @@ export class Project1 extends LitElement {
 
       .background {
         padding: 20px;
-        background-color: lightblue;
+        background-color: var(--ddd-theme-default-skyBlue);
         border: 2px solid black;
         border-radius: 10px; 
+        display: center;
         flex-direction: column;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         
 
     }
+
+   
 
     button, input{
     margin-bottom: 24px; 
@@ -87,17 +97,17 @@ export class Project1 extends LitElement {
 }
 
 .toggle-button:hover {
-  background-color: red;
+  background-color: var(--ddd-theme-default-discoveryCoral);
 }
 
 .toggle-button:focus {
-  background-color: yellow;
+  background-color: var(--ddd-theme-default-keystoneYellow);
 }
 
    
 
     .button {
-    color: black;
+    color: var(--ddd-theme-default-coalyGray);
     padding: 16px 48px;
     border: 0;
     font-size: 16px;
@@ -107,16 +117,17 @@ export class Project1 extends LitElement {
 
    
     button{
-  background-color: white;
+  background-color: var(--ddd-theme-default-slateMaxLight);
     }
 
     button:hover {
-  background-color: red;
+  background-color: var(--ddd-theme-default-discoveryCoral);
     }
 
 
     button:focus {
-  background-color: yellow;
+  background-color: var(--ddd-theme-default-keystoneYellow);
+;
   
     }
 
@@ -125,72 +136,124 @@ export class Project1 extends LitElement {
   cursor: not-allowed;
     }
 
-
-
-      
     `;
 
-    }
+  }
 
 
 
-    makeItRain() {
-        // this is called a dynamic import. It means it won't import the code for confetti until this method is called
-        // the .then() syntax after is because dynamic imports return a Promise object. Meaning the then() code
-        // will only run AFTER the code is imported and available to us
-        import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
-            (module) => {
-                // This is a minor timing 'hack'. We know the code library above will import prior to this running
-                // The "set timeout 0" means "wait 1 microtask and run it on the next cycle.
-                // this "hack" ensures the element has had time to process in the DOM so that when we set popped
-                // it's listening for changes so it can react
-                setTimeout(() => {
-                    // forcibly set the poppped attribute on something with id confetti
-                    // while I've said in general NOT to do this, the confetti container element will reset this
-                    // after the animation runs so it's a simple way to generate the effect over and over again
-                    this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
-                }, 0);
+  makeItRain() {
+    // this is called a dynamic import. It means it won't import the code for confetti until this method is called
+    // the .then() syntax after is because dynamic imports return a Promise object. Meaning the then() code
+    // will only run AFTER the code is imported and available to us
+    import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+      (module) => {
+        // This is a minor timing 'hack'. We know the code library above will import prior to this running
+        // The "set timeout 0" means "wait 1 microtask and run it on the next cycle.
+        // this "hack" ensures the element has had time to process in the DOM so that when we set popped
+        // it's listening for changes so it can react
+        setTimeout(() => {
+          // forcibly set the poppped attribute on something with id confetti
+          // while I've said in general NOT to do this, the confetti container element will reset this
+          // after the animation runs so it's a simple way to generate the effect over and over again
+          this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+        }, 0);
 
-              }
-        );
-    }
+        alert("Saved Party!")
 
-   
-    
-  
-
-      addRPGCharacter() {
-        import("@lrnwebcomponents/rpg-character/rpg-character.js").then(module => {
-            const rpgCharacter = document.createElement('rpg-character');
-            this.shadowRoot.querySelector('.background').appendChild(rpgCharacter);
-            const usernameInput = this.shadowRoot.querySelector('.username-input');
-            const username = usernameInput.value;
-            this.userNames.push(username);
-            console.log(username);
-          });
-
-    }
-
-
-    deleteRPGCharacters() {
-      const rpgCharacters = this.shadowRoot.querySelectorAll('rpg-character');
-      rpgCharacters.forEach(character => character.remove()
+      }
     );
   }
 
 
-    render() {
-        return html`
+
+
+
+
+
+  addRPGCharacter() {
+    const usernameInput = this.shadowRoot.querySelector("#usernameInput");
+    const username = usernameInput.value.trim();
+    if (this.userNames.length < 10){
+    import("@lrnwebcomponents/rpg-character/rpg-character.js").then(module => {
+      const username = this.shadowRoot.querySelector("#usernameInput").value;
+      this.userNames.push(username);
+      this.requestUpdate();
+      usernameInput.value = "";
+
+    });
+
+  } else {
+    alert("Error! Can only have a maximum of 10 users!");
+    usernameInput.value = "";
+    return;
+
+  }
+
+
+  }
+
+
+  deleteUser(username) {
+    console.log(username);
+    const rpgCharacter = this.shadowRoot.querySelector(`rpg-character[username="${username}"]`);
+    if (rpgCharacter) {
+        rpgCharacter.remove();
+    }
+
+    const usernameDisplay = this.shadowRoot.querySelector(`.username-display[usernameInput="${username}"]`);
+    if (usernameDisplay) {
+        usernameDisplay.remove();
+    }
+
+    const deleteButton = this.shadowRoot.querySelector(`.delete-btn[usernameInput="${username}"]`);
+    if (deleteButton) {
+        deleteButton.remove();
+    }
+  }
+
+
+
+
+
+
+  deleteRPGCharacters() {
+    const rpgCharacters = this.shadowRoot.querySelectorAll('rpg-character');
+    const usernames = this.shadowRoot.querySelectorAll('.username-display');
+    const deleteButton =  this.shadowRoot.querySelectorAll('.delete-btn');
+
+    rpgCharacters.forEach(character => character.remove());
+    usernames.forEach(username => username.remove());
+    deleteButton.forEach(button => button.remove());
+
+  }
+
+
+
+  render() {
+    return html`
 <confetti-container id="confetti">
     <div id = "wholething">
         <div class = "background" style="background-color: ${this.color};">
         <h3 class = "heading">${this.title}</h3>
-        <input type = "text" class = "username-input" id = "usernameInput" placeholder = "Enter name">
+        <input type = "text" class = "username-input" id = "usernameInput" placeholder = "Enter name" pattern="[a-z0-9]*">
         <button class = "add" id = "user" @click="${this.addRPGCharacter}">Add User</button>
         <div class = "button">
         <button @click="${this.makeItRain}">Save Members Party</button>
-        <button @click="${this.deleteRPGCharacters}">Delete</button>
+        <button @click="${this.deleteRPGCharacters}">Delete All</button>
         </div>
+        <div class="user-list">
+                        ${this.userNames.map((nameInput) => html`
+                            <div class="user-container">
+                                <rpg-character username="${nameInput}"></rpg-character>
+                                <p class = 'username-display' usernameInput="${nameInput}">${nameInput}</p>
+                                <button class="delete-btn" usernameInput="${nameInput}" @click=${() => this.deleteUser(nameInput)}>Delete</button>
+                            </div>
+                        `)}
+                    </div>
+       
+      </div>
+       
       </div>
      </div>
     </div>
@@ -198,19 +261,20 @@ export class Project1 extends LitElement {
 
     `;
 
-    }
+  }
 
 
-    static get properties() {
-        return {
+  static get properties() {
+    return {
 
-            title: { type: String },
-            color: { type: String },
-            open: {type: Boolean, reflect: false},
-            button: {type: String},
-            userNames: {type: Array},
-        };
-    }
+      title: { type: String },
+      color: { type: String },
+      open: { type: Boolean, reflect: false },
+      button: { type: String },
+      userNames: { type: Array },
+
+    };
+  }
 }
 
 globalThis.customElements.define(Project1.tag, Project1);
