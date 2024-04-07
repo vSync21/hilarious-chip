@@ -44,7 +44,7 @@ export class Project1 extends DDD {
         margin: 20px;
     }
 
-    .user-list {
+    .users {
       display: flex;
     }
 
@@ -242,7 +242,7 @@ export class Project1 extends DDD {
         <button @click="${this.makeItRain}">Save Members Party</button>
         <button @click="${this.deleteRPGCharacters}">Delete All</button>
         </div>
-        <div class="user-list">
+        <div class="users">
                         ${this.userNames.map((nameInput) => html`
                             <div class="user-container">
                                 <rpg-character username="${nameInput}"></rpg-character>
